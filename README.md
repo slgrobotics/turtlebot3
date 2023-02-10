@@ -1,4 +1,59 @@
-# ROS2 packages for Turtlebot3 for Create 1 Base - use ros2-devel branch!
+# ROS2 packages for Turtlebot3 for Create 1 Base
+## use ros2-devel branch!
+
+Create 1 (Roomba 400) parameters: axel length: 0.262  wheel diameter: 0.066
+
+This branch relies on the following physical robot setup: https://github.com/slgrobotics/turtlebot_create
+
+Also see: [https://github.com/slgrobotics/turtlebot3_simulations.git](https://github.com/slgrobotics/turtlebot3_simulations/tree/ros2-devel)  - use ros2-devel branch!
+```
+mkdir -p ~/turtlebot_create_ws/src
+cd ~/turtlebot_create_ws
+```
+Create a "repos" file:  ~/turtlebot_create_ws/turtlebot3.repos :
+```
+repositories:
+  turtlebot3/turtlebot3:
+    type: git
+    url: https://github.com/slgrobotics/turtlebot3.git
+    version: ros2-devel
+  turtlebot3/turtlebot3_simulations:
+    type: git
+    url: https://github.com/slgrobotics/turtlebot3_simulations.git
+    version: ros2-devel
+```
+Retrieve repositories and build:
+```
+cd ~/turtlebot_create_ws
+vcs import src<turtlebot3.repos
+colcon build
+
+rosdep update
+rosdep install --from-paths src --ignore-src -y
+```
+Add this to ~/.bashrc or otherwise set this environment variable:
+```
+export TURTLEBOT3_MODEL=create_1
+```
+Now you can run the robot:
+```
+source ~/turtlebot_create_ws/install/setup.bash
+ros2 launch turtlebot3_bringup robot.launch.py
+```
+You can use any teleop package (keyboard or joystick):
+```
+ros2 run turtlebot3_teleop teleop_keyboard
+```
+Use Cartographer from binary Turtlebot 3 installation:
+```
+ros2 launch turtlebot3_cartographer cartographer.launch.py
+```
+To save map ("my_map.pgm"):
+```
+ros2 run nav2_map_server map_saver_cli -f my_map
+```
+See https://github.com/ros-industrial/ros2_i_training/blob/main/workshop/source/_source/navigation/ROS2-Cartographer.md
+
 
 ## ROBOTIS e-Manual for TurtleBot3
 - [ROBOTIS e-Manual for TurtleBot3](http://turtlebot3.robotis.com/)
