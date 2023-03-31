@@ -6,6 +6,18 @@ Create 1 (Roomba 400) parameters: axel length: 0.262  wheel diameter: 0.066
 This branch relies on the following physical robot setup: https://github.com/slgrobotics/turtlebot_create
 
 Also see: [https://github.com/slgrobotics/turtlebot3_simulations.git](https://github.com/slgrobotics/turtlebot3_simulations/tree/ros2-devel)  - use ros2-devel branch!
+
+### Note: what runs on Raspberry Pi, and what on the Desktop machine:
+
+My Turtlebot RPi 3B runs three nodes ( https://github.com/slgrobotics/turtlebot_create/blob/main/RPi_Setup/launch/myturtle.py )
+
+The Autonomy Labs *"create_driver"* node on RPi (https://github.com/slgrobotics/create_robot/tree/foxy) isn't a ROS2 Turtlebot yet and requires an actual ROBOTIS node to run - which can be run on the Desktop.
+
+As the ROBOTIS code handled only "burger" and "waffle" bots, I had to fork their repository to add Create 1 URDF and introduce minor configuration changes.
+
+Instructions here relate to Desktop machine only.
+
+## Build and run instructions
 ```
 mkdir -p ~/turtlebot_create_ws/src
 cd ~/turtlebot_create_ws
