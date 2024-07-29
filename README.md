@@ -1,28 +1,42 @@
 # ROS2 packages for Turtlebot3 for Create 1 Base
-## use ros2-devel branch!
+
+### ROS Humble and Jazzy: use the default _ros2-devel_ branch!
 
 Create 1 (Roomba 400) parameters: axel length: 0.262  wheel diameter: 0.066
 
-This branch relies on the following physical robot setup: https://github.com/slgrobotics/turtlebot_create
+This branch relies on the following physical robot setup: https://github.com/slgrobotics/robots_bringup/tree/main/Docs/Create1
 
-Also see: [https://github.com/slgrobotics/turtlebot3_simulations.git](https://github.com/slgrobotics/turtlebot3_simulations/tree/ros2-devel)  - use ros2-devel branch!
+(old version: https://github.com/slgrobotics/turtlebot_create)
+
+*ROS Jazzy / Ubuntu 24.04* is not kind to ROBOTIS *turtlebot3_simulations* package. We use our own simulation for Dragger - see https://github.com/slgrobotics/robots_bringup/tree/main/Docs/ROS-Jazzy
+
+If using ROS Humble, also see: [https://github.com/slgrobotics/turtlebot3_simulations](https://github.com/slgrobotics/turtlebot3_simulations)
 
 ### Note: what runs on Raspberry Pi, and what on the Desktop machine:
 
-My Turtlebot RPi 3B runs three nodes ( https://github.com/slgrobotics/turtlebot_create/blob/main/RPi_Setup/launch/myturtle.py )
+My _Create 1 Turtlebot_ Raspberry Pi 3B runs three nodes ( https://github.com/slgrobotics/turtlebot_create/blob/main/RPi_Setup/launch/myturtle.py )
 
-The Autonomy Labs *"create_driver"* node on RPi (https://github.com/slgrobotics/create_robot/tree/foxy) isn't a ROS2 Turtlebot yet and requires an actual ROBOTIS node to run - which can be run on the Desktop.
+The Autonomy Labs *"create_driver"* node on RPi (https://github.com/slgrobotics/create_robot - you may use _foxy_ branch for Humble) isn't a ROS2 Turtlebot yet and requires an actual ROBOTIS *robot_state_publisher* node to run - which I run on the Desktop. See https://github.com/slgrobotics/turtlebot3/blob/ros2-devel/turtlebot3_bringup/launch/robot.launch.py
 
-As the ROBOTIS code handled only "burger" and "waffle" bots, I had to fork their repository to add Create 1 URDF and introduce minor configuration changes.
+As the ROBOTIS code handled only "burger" and "waffle" bots, I had to fork their repository to add _Create 1_ URDF and introduce minor configuration changes.
 
-Instructions here relate to Desktop machine only.
+**Note:** Instructions here relate to Desktop machine only.
 
-## Build and run instructions
+## Build and run instructions (your Desktop machine)
 ```
 mkdir -p ~/turtlebot_create_ws/src
 cd ~/turtlebot_create_ws
 ```
 Create a "repos" file:  ~/turtlebot_create_ws/turtlebot3.repos :
+ROS Jazzy (Gazebo sim part would not build, so it is excluded):
+```
+repositories:
+  turtlebot3/turtlebot3:
+    type: git
+    url: https://github.com/slgrobotics/turtlebot3.git
+    version: ros2-devel
+```
+ROS Humble:
 ```
 repositories:
   turtlebot3/turtlebot3:
@@ -37,7 +51,7 @@ repositories:
 Retrieve repositories and build:
 ```
 cd ~/turtlebot_create_ws
-vcs import src<turtlebot3.repos
+vcs import src < turtlebot3.repos
 colcon build
 
 rosdep update
