@@ -1,18 +1,21 @@
 # ROS2 packages for Turtlebot3 for Create 1 Base
 
-### ROS Humble and Jazzy: use the default _ros2-devel_ branch!
+You probably came here from https://github.com/slgrobotics/turtlebot_create/tree/main/Turtle_Setup
 
-Create 1 (Roomba 400) parameters: axel length: 0.262  wheel diameter: 0.066
+**Note:** 
 
-This branch relies on the following physical robot setup: https://github.com/slgrobotics/robots_bringup/tree/main/Docs/Create1
+1. ROS Humble and Jazzy: make sure you use the default _ros2-devel_ branch
 
+2. Create 1 (Roomba 400) parameters: axel length: 0.262  wheel diameter: 0.066
+
+3. This branch relies on the following physical robot setup: https://github.com/slgrobotics/robots_bringup/tree/main/Docs/Create1 
 (old version: https://github.com/slgrobotics/turtlebot_create)
 
-*ROS Jazzy / Ubuntu 24.04* is not kind to ROBOTIS *turtlebot3_simulations* package. We use our own simulation for Dragger - see https://github.com/slgrobotics/robots_bringup/tree/main/Docs/ROS-Jazzy
+4. *ROS Jazzy / Ubuntu 24.04* is not kind to ROBOTIS *turtlebot3_simulations* package. We use our own simulation for Dragger - see https://github.com/slgrobotics/robots_bringup/tree/main/Docs/ROS-Jazzy
 
-If using ROS Humble, also see: [https://github.com/slgrobotics/turtlebot3_simulations](https://github.com/slgrobotics/turtlebot3_simulations)
+5. If using ROS Humble, also see: [https://github.com/slgrobotics/turtlebot3_simulations](https://github.com/slgrobotics/turtlebot3_simulations)
 
-### Note: what runs on Raspberry Pi, and what on the Desktop machine:
+### Important: what runs on Raspberry Pi, and what on the Desktop machine:
 
 My _Create 1 Turtlebot_ Raspberry Pi 3B runs three nodes ( https://github.com/slgrobotics/turtlebot_create/blob/main/RPi_Setup/launch/myturtle.py )
 
@@ -24,10 +27,10 @@ As the ROBOTIS code handled only "burger" and "waffle" bots, I had to fork their
 
 ## Build and run instructions (your Desktop machine)
 ```
-mkdir -p ~/turtlebot_create_ws/src
-cd ~/turtlebot_create_ws
+mkdir -p ~/turtlebot3_ws/src
+cd ~/turtlebot3_ws
 ```
-Create a "repos" file:  ~/turtlebot_create_ws/turtlebot3.repos :
+Create a _"repos"_ file:  ~/turtlebot3_ws/turtlebot3.repos :
 
 ROS Jazzy (Gazebo sim part would not build, so it is excluded):
 ```
@@ -51,28 +54,33 @@ repositories:
 ```
 Retrieve repositories and build:
 ```
-cd ~/turtlebot_create_ws
+cd ~/turtlebot3_ws
 vcs import src < turtlebot3.repos
-colcon build
-
 rosdep update
 rosdep install --from-paths src --ignore-src -y
+colcon build
 ```
 Add this to ~/.bashrc or otherwise set this environment variable:
 ```
 export TURTLEBOT3_MODEL=create_1
 ```
-Now you can run the robot:
+Now you can run the remaining robot nodes on the Desktop:
 ```
-source ~/turtlebot_create_ws/install/setup.bash
+source ~/turtlebot3_ws/install/setup.bash
 ros2 launch turtlebot3_bringup robot.launch.py
 ```
 You can use any teleop package (keyboard or joystick):
 ```
+source ~/turtlebot3_ws/install/setup.bash
 ros2 run turtlebot3_teleop teleop_keyboard
 ```
-Use Cartographer from binary Turtlebot 3 installation:
+If on Humble, run Cartographer from binary Turtlebot 3 installation:
 ```
+ros2 launch turtlebot3_cartographer cartographer.launch.py
+```
+On Jazzy you need to source the build folder setup:
+```
+source ~/turtlebot3_ws/install/setup.bash
 ros2 launch turtlebot3_cartographer cartographer.launch.py
 ```
 To save map ("my_map.pgm"):
@@ -83,13 +91,14 @@ See https://github.com/ros-industrial/ros2_i_training/blob/main/workshop/source/
 
 ## Running Nav2
 
-You can run standard Turtlebot3 binaries, use "waffle" if needed:
+You can run standard Turtlebot3 binaries, use _"waffle"_ if needed - _"create_1"_ might not work. Source the build folder on Jazzy:
 
 ```
 export TURTLEBOT3_MODEL=waffle
+source ~/turtlebot3_ws/install/setup.bash
 ros2 launch nav2_bringup bringup_launch.py use_sim_time:=False autostart:=False map:=/home/sergei/my_map.yaml
 
-ros2 run rviz2 rviz2 -d /opt/ros/humble/share/nav2_bringup/rviz/nav2_default_view.rviz
+ros2 run rviz2 rviz2 -d /opt/ros/jazzy/share/nav2_bringup/rviz/nav2_default_view.rviz
 ```
 
 The above will bring up full Nav2 stack and Rviz2
@@ -104,6 +113,8 @@ If in doubt (i.e. not seeing "map" in TFs), you can always run static transform:
 ```
 ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 map odom
 ```
+
+You can now proceed to https://github.com/slgrobotics/turtlebot_create/tree/main/Turtle_Setup
 
 ## ROBOTIS e-Manual for TurtleBot3
 - [ROBOTIS e-Manual for TurtleBot3](http://turtlebot3.robotis.com/)
