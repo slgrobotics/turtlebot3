@@ -28,6 +28,7 @@ mkdir -p ~/turtlebot_create_ws/src
 cd ~/turtlebot_create_ws
 ```
 Create a "repos" file:  ~/turtlebot_create_ws/turtlebot3.repos :
+
 ROS Jazzy (Gazebo sim part would not build, so it is excluded):
 ```
 repositories:
