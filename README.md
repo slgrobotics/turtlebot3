@@ -1,6 +1,6 @@
 # ROS2 packages for Turtlebot3 for Create 1 Base
 
-You probably came here from https://github.com/slgrobotics/turtlebot_create/tree/main/Turtle_Setup
+You probably came here from https://github.com/slgrobotics/robots_bringup/tree/main/Docs/ROS-Jazzy or https://github.com/slgrobotics/turtlebot_create/tree/main/Turtle_Setup
 
 **Note:** 
 
@@ -21,7 +21,7 @@ My _Create 1 Turtlebot_ Raspberry Pi 3B runs three nodes ( https://github.com/s
 
 The Autonomy Labs *"create_driver"* node on RPi (https://github.com/slgrobotics/create_robot - you may use _foxy_ branch for Humble) isn't a ROS2 Turtlebot yet and requires an actual ROBOTIS *robot_state_publisher* node to run - which I run on the Desktop. See https://github.com/slgrobotics/turtlebot3/blob/ros2-devel/turtlebot3_bringup/launch/robot.launch.py
 
-As the ROBOTIS code handled only "burger" and "waffle" bots, I had to fork their repository to add _Create 1_ URDF and introduce minor configuration changes.
+As the ROBOTIS code handled only "burger" and "waffle" bots, I had to fork their repository to add _Create 1_ URDF and introduce minor configuration changes. My other robots (Dragger, Plucky) run *robot_state_publisher* node on-board and don't need Desktop-side URDF. 
 
 **Note:** Instructions here relate to Desktop machine only.
 
@@ -114,7 +114,7 @@ If in doubt (i.e. not seeing "map" in TFs), you can always run static transform:
 ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 map odom
 ```
 
-You can now proceed to https://github.com/slgrobotics/turtlebot_create/tree/main/Turtle_Setup
+You can now proceed to https://github.com/slgrobotics/robots_bringup/tree/main/Docs/ROS-Jazzy or https://github.com/slgrobotics/turtlebot_create/tree/main/Turtle_Setup
 
 ## ROBOTIS e-Manual for TurtleBot3
 - [ROBOTIS e-Manual for TurtleBot3](http://turtlebot3.robotis.com/)
