@@ -32,7 +32,7 @@ cd ~/turtlebot3_ws
 ```
 Create a _"repos"_ file:  ~/turtlebot3_ws/turtlebot3.repos :
 
-ROS Jazzy (Gazebo sim part would not build, so it is excluded):
+ROS **Jazzy** (Gazebo sim part would not build, so it is excluded):
 ```
 repositories:
   turtlebot3/turtlebot3:
@@ -40,7 +40,7 @@ repositories:
     url: https://github.com/slgrobotics/turtlebot3.git
     version: ros2-devel
 ```
-ROS Humble:
+ROS **Humble**:
 ```
 repositories:
   turtlebot3/turtlebot3:
@@ -64,7 +64,7 @@ Add this to ~/.bashrc or otherwise set this environment variable:
 ```
 export TURTLEBOT3_MODEL=create_1
 ```
-Now you can run the remaining robot nodes on the Desktop:
+For Create_1 you can run the remaining robot nodes (*robot_state_publisher*) on the Desktop:
 ```
 source ~/turtlebot3_ws/install/setup.bash
 ros2 launch turtlebot3_bringup robot.launch.py
